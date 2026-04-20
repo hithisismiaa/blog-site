@@ -1,5 +1,5 @@
-from flask import Flask, render_template
 import os
+from flask import Flask, render_template
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -9,20 +9,19 @@ app = Flask(
     static_folder=os.path.join(BASE_DIR, "../static")
 )
 
+# 샘플 데이터 (DB 없이)
 posts = [
-    {"id": 1, "title": "첫 글", "content": "Flask + Vercel 블로그입니다."},
-    {"id": 2, "title": "두번째 글", "content": "서버리스로 배포 중!"}
+    {"id": 1, "title": "첫 글", "content": "Flask + Vercel 블로그 시작!"},
+    {"id": 2, "title": "두 번째 글", "content": "배포 성공을 목표로!"}
 ]
 
+# 홈
 @app.route("/")
-def home():
+def index():
     return render_template("index.html", posts=posts)
 
+# 상세 페이지
 @app.route("/post/<int:post_id>")
 def post(post_id):
-    post = next((p for p in posts if p["id"] == post_id], None)
+    post = next((p for p in posts if p["id"] == post_id), None)
     return render_template("post.html", post=post)
-
-# 👇 이거 추가 (핵심)
-def handler(request):
-    return app

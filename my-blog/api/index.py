@@ -22,6 +22,3 @@ def home():
 def post(post_id):
     post = next((p for p in posts if p["id"] == post_id), None)
     return render_template("post.html", post=post)
-
-# 🔥 핵심: 이 이름으로 export
-handler = app

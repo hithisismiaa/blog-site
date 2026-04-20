@@ -1,5 +1,5 @@
-import os
 from flask import Flask, render_template
+import os
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
@@ -20,5 +20,9 @@ def home():
 
 @app.route("/post/<int:post_id>")
 def post(post_id):
-    post = next((p for p in posts if p["id"] == post_id), None)
+    post = next((p for p in posts if p["id"] == post_id], None)
     return render_template("post.html", post=post)
+
+# 👇 이거 추가 (핵심)
+def handler(request):
+    return app
